@@ -575,10 +575,9 @@ class class1 {
               .promise();
           }
 
-          // const result = await uploadToS3(req.files[0], "Logo");
+          const result = await uploadToS3(req.files[0], "Logo");
 
-          // Restaurant.RestaurantLogo = [result.Location];
-          Restaurant.RestaurantLogo = [];
+          Restaurant.RestaurantLogo = [result.Location];
         }
 
         await Restaurant.save();
@@ -1124,14 +1123,13 @@ class class1 {
         var a = { message: "Insufficient Data", status: `${HTTP.BAD_REQUEST}` };
         res.status(HTTP.BAD_REQUEST).json(a);
       } else {
-        // const result = await uploadToS3(req.files[0], "Template");
+        const result = await uploadToS3(req.files[0], "Template");
 
         let data = new TemplateModel({
           RestaurantID: req.body.Id,
           description: req.body.description,
           Type: req.body.templateType,
-          // image: result.Location,
-          image: "",
+          image: result.Location,
         });
 
         await data.save();
@@ -1681,8 +1679,8 @@ class class1 {
 
           var result = [];
           if (req.files.length > 0) {
-            // const Fileresult = await uploadToS3(req.files[0], "Logo");
-            // await result.push(Fileresult.Location);
+            const Fileresult = await uploadToS3(req.files[0], "Logo");
+            await result.push(Fileresult.Location);
           }
 
           let newUser = new restaurants({
@@ -1923,9 +1921,8 @@ class class1 {
     if (!restaurantId || !cName || !cDescription || !cStatus || !req.file) {
       return res.json({ error: "All filled must be required" });
     } else {
-      // const result = await uploadToS3(req.file, "caretory");
-      // let cImage = result.Location;
-      let cImage = "";
+      const result = await uploadToS3(req.file, "caretory");
+      let cImage = result.Location;
       cName = toTitleCase(cName);
       try {
         let newCategory = new categoryModel({
@@ -2283,11 +2280,10 @@ class class1 {
       return res.json({ error: "Please Select Single Image" });
     } else {
       try {
-        // const result = await uploadToS3(req.files[0], "Product");
+        const result = await uploadToS3(req.files[0], "Product");
 
         let newProduct = new productModel({
-          // pImages: result.Location,
-          pImages: "",
+          pImages: result.Location,
           pName,
           pDescription,
           pPrice,
@@ -2350,9 +2346,8 @@ class class1 {
         pStatus,
       };
       if (editImages.length == 1) {
-        // const result = await uploadToS3(editImages[0], "Product");
-        // let cImage = result.Location;
-        let cImage = "";
+        const result = await uploadToS3(editImages[0], "Product");
+        let cImage = result.Location;
         editData = { ...editData, pImages: cImage };
 
         let DeleteProductFile = await productModel.findById(pId);
@@ -3845,7 +3840,7 @@ class class1 {
   static AddEmp = async (req, res) => {
     try {
       if (req.body.restaurantID && req.body.Name && req.files) {
-        // const result = await uploadToS3(req.files[0], "EmployeeImage");
+        const result = await uploadToS3(req.files[0], "EmployeeImage");
 
         var Employee = await EmployeeModel.findOne({
           restaurantID: req.body.restaurantID,
@@ -3856,8 +3851,7 @@ class class1 {
           let data = new EmployeeModel({
             restaurantID: req.body.restaurantID,
             Name: req.body.Name,
-            // Image: [result.Location],
-            Image: [],
+            Image: [result.Location],
           });
 
           await data.save();
@@ -4310,26 +4304,26 @@ class class1 {
 
         var Pan = [];
         for(var i=0;i<req.files['Pan'].length;i++){
-          // const result = await uploadToS3(req.files['Aadhar'][i], "Template"); // Need TRo Create
-          // await Pan.push(result.Location);
+          const result = await uploadToS3(req.files['Aadhar'][i], "Template"); // Need TRo Create
+          await Pan.push(result.Location);
         }
 
         var Aadhar = [];
         for(var i=0;i<req.files['Aadhar'].length;i++){
-          // const result = await uploadToS3(req.files['Aadhar'][i], "Template"); // Need TRo Create
-          // await Aadhar.push(result.Location);
+          const result = await uploadToS3(req.files['Aadhar'][i], "Template"); // Need TRo Create
+          await Aadhar.push(result.Location);
         }
 
         var BusinessPan = [];
         for(var i=0;i<req.files['BusinessPan'].length;i++){
-          // const result = await uploadToS3(req.files['Aadhar'][i], "Template"); // Need TRo Create
-          // await BusinessPan.push(result.Location);
+          const result = await uploadToS3(req.files['Aadhar'][i], "Template"); // Need TRo Create
+          await BusinessPan.push(result.Location);
         }
 
         var IncorporateCertificate = [];
         for(var i=0;i<req.files['IncorporateCertificate'].length;i++){
-          // const result = await uploadToS3(req.files['Aadhar'][i], "Template"); // Need TRo Create
-          // await IncorporateCertificate.push(result.Location);
+          const result = await uploadToS3(req.files['Aadhar'][i], "Template"); // Need TRo Create
+          await IncorporateCertificate.push(result.Location);
         }
 
         let data = new SupportRequiredDoc({
